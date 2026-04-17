@@ -1,8 +1,8 @@
-import Button from '../components/Button';
-import smiskihero from '../assets/images/smiskihero.jpg';
-import smiskibasic from '../assets/images/smiskibasic.jpg';
-import smiskibath from '../assets/images/smiskibath.jpg';
-import smiskidesk from '../assets/images/smiskidesk.jpg';
+import Button from '../../components/Button';
+import smiskihero from '../../assets/images/smiskihero.jpg';
+import smiskibasic from '../../assets/images/smiskibasic.jpg';
+import smiskibath from '../../assets/images/smiskibath.jpg';
+import smiskidesk from '../../assets/images/smiskidesk.jpg';
 
 const HomePage = () => {
   return (

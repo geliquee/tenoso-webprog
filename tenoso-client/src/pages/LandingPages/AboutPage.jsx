@@ -1,9 +1,9 @@
-import Button from '../components/Button';
-import smiskiabout from '../assets/images/smiskiabout.jpg';
-import smiskigrid1 from '../assets/images/smiskigrid1.jpg';
-import smiskigrid2 from '../assets/images/smiskigrid2.jpg';
-import smiskigrid3 from '../assets/images/smiskigrid3.jpg';
-import smiskigrid4 from '../assets/images/smiskigrid4.jpg';
+import Button from '../../components/Button';
+import smiskiabout from '../../assets/images/smiskiabout.jpg';
+import smiskigrid1 from '../../assets/images/smiskigrid1.jpg';
+import smiskigrid2 from '../../assets/images/smiskigrid2.jpg';
+import smiskigrid3 from '../../assets/images/smiskigrid3.jpg';
+import smiskigrid4 from '../../assets/images/smiskigrid4.jpg';
 
 const AboutPage = () => {
   return (
