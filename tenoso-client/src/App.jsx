@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-// HomePage Structure
 import Layout from './layouts/Layout';
 import ArticlePage from './pages/LandingPages/ArticlePage';
 import HomePage from './pages/LandingPages/HomePage';
@@ -13,8 +12,8 @@ import SignUpPage from './pages/AuthPages/SignUpPage';
 
 import NotFoundPage from './pages/NotFoundPage';
 
-import login from './assets/images/login.png';    // 👈 add your actual filename
-import signup from './assets/images/signup.png';  // 👈 add your actual filename
+import login from './assets/images/login.png';  
+import signup from './assets/images/signup.png';  
 
 const routes = [
   {

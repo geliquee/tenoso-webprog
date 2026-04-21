@@ -3,7 +3,6 @@ const Footer = () => {
     <footer className="border-t-2 border-[#90a955] bg-[#ecf39e] px-6 py-10 mt-auto">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
         
-        {/* Brand */}
         <div>
           <h2 className="text-2xl font-bold text-[#132a13]">Smiski</h2>
           <p className="mt-2 text-sm text-[#31572c]">
@@ -11,7 +10,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Navigation */}
         <div>
           <h3 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-green-500 mb-3">
             Navigation
@@ -23,7 +21,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Categories */}
         <div>
           <h3 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-green-500 mb-3">
             Categories
@@ -38,7 +35,6 @@ const Footer = () => {
 
       </div>
 
-      {/* Bottom bar */}
       <div className="mt-10 border-t border-[#90a955] pt-6 text-center text-xs text-[#31572c]">
         © 2026 Smiski Fan Blog. All rights reserved. Not affiliated with Dreams Inc.
       </div>
