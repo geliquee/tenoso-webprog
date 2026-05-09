@@ -122,15 +122,15 @@ function DashboardPage() {
                 {
                   label: 'Series 1',
                   data: [35, 44, 24, 34],
-                  backgroundColor: 'rgba(54, 162, 235, 0.5)',   
-                  borderColor: 'rgba(54, 162, 235, 1)',
+                  backgroundColor: '#ecf39e',
+                  borderColor: '#90a955',
                   borderWidth: 1,
                 },
                 {
                   label: 'Series 2',
                   data: [51, 6, 49, 30],
-                  backgroundColor: 'rgba(255, 99, 132, 0.5)',  
-                  borderColor: 'rgba(255, 99, 132, 1)',
+                  backgroundColor: '#dde5b6',
+                  borderColor: '#90a955',
                   borderWidth: 1,
                 },
               ],
@@ -141,9 +141,9 @@ function DashboardPage() {
           series={[
             {
               data: [
-                { id: 0, value: 10, label: 'series A' },
-                { id: 1, value: 15, label: 'series B' },
-                { id: 2, value: 20, label: 'series C' },
+                { id: 0, value: 10, label: 'series A', color: '#ecf39e' },
+                { id: 1, value: 15, label: 'series B', color: '#90a955' },
+                { id: 2, value: 20, label: 'series C', color: '#dde5b6' },
               ],
             },
           ]}

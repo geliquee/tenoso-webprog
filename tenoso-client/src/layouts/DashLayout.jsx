@@ -25,6 +25,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import Button from "@mui/material/Button";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import ArticleIcon from "@mui/icons-material/Article";
+import navlogo from "../assets/images/navlogo.png";
 
 const drawerWidth = 240;
 const dashboardNavItems = [
@@ -110,6 +111,11 @@ const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
+
+  "& .MuiDrawer-paper": {
+    backgroundColor: "#dde5b6",
+    color: "#fff",
+},
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -125,9 +131,11 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: "#dde5b6",
+  color: "#283618",
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: "#90a955",
+    color: "#fff",
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -157,18 +165,9 @@ const getPageTitle = (pathname) =>
 
 const DashLayout = () => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
   const location = useLocation();
   const pageTitle = getPageTitle(location.pathname);
   const navigate = useNavigate();
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   const handleLogout = () => {
     navigate("/");
@@ -180,27 +179,23 @@ const DashLayout = () => {
         <CssBaseline />
         {/* App Bar */}
         {/* <AppBar position="fixed" open={open}> */}
-        <AppBar position="fixed">
+        <AppBar
+          position="fixed"
+          sx={{
+            backgroundColor: "#ecf39e", // your desired color
+          }}
+        >
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              // onClick={(open)}
-              onClick={open ? handleDrawerClose : handleDrawerOpen}
-              edge="start"
-              // sx={{ marginRight: 5, ...(open && { display: 'none' }) }}
-              sx={{ marginRight: 5, ...open }}
-            >
-              {open ? <MenuOpenIcon /> : <MenuIcon />}
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              {pageTitle}
-            </Typography>
+            <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+              <img
+                src={navlogo}
+                alt="Logo"
+                style={{
+                  height: "40px",
+                  objectFit: "contain",
+                }}
+              />
+            </Box>
             {/* Search */}
             <Search>
               <SearchIconWrapper>
@@ -211,7 +206,18 @@ const DashLayout = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            <Button
+              variant="outlined"
+              onClick={handleLogout}
+              sx={{
+                color: "#90a955",
+                borderColor: "#90a955",
+                "&:hover": {
+                  borderColor: "#ffe97f",
+                  backgroundColor: "#ffe97f",
+                },
+              }}
+            >
               Logout
             </Button>
           </Toolbar>
@@ -219,13 +225,7 @@ const DashLayout = () => {
         {/* Drawer */}
         <Drawer variant="permanent" open={open}>
           <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
+            
           </DrawerHeader>
           <Divider />
           {/* Drawer List */}
@@ -237,9 +237,15 @@ const DashLayout = () => {
                   to={to}
                   selected={location.pathname === to}
                   sx={{
-                    minHeight: 48,
-                    px: 2.5,
-                    justifyContent: open ? "initial" : "center",
+                      minHeight: 48,
+                      px: 2.5,
+                      justifyContent: open ? "initial" : "center",
+                      color: "#283618",
+                      "&.Mui-selected": {
+                          backgroundColor: "#90a955",
+                          "&:hover": { backgroundColor: "#90a955" },
+                      },
+                      "&:hover": { backgroundColor: "#ffe566" },
                   }}
                 >
                   <ListItemIcon
@@ -247,6 +253,7 @@ const DashLayout = () => {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
+                      color: "inherit",
                     }}
                   >
                     <Icon />
