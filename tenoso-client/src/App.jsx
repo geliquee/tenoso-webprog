@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 
 import Layout from './layouts/Layout';
 import ArticlePage from './pages/LandingPages/ArticlePage';
@@ -12,71 +12,82 @@ import SignUpPage from './pages/AuthPages/SignUpPage';
 
 import NotFoundPage from './pages/NotFoundPage';
 
-import login from './assets/images/login.png';  
-import signup from './assets/images/signup.png';  
+import login from './assets/images/login.png';
+import signup from './assets/images/signup.png';
 
-import DashLayout from "./layouts/DashLayout.jsx";
-import DashboardPage from "./pages/DashboardPages/DashboardPage.jsx";
-import ReportsPage from "./pages/DashboardPages/ReportsPage.jsx";
-import UsersPage from "./pages/DashboardPages/UsersPage.jsx";
+import DashLayout from './layouts/DashLayout.jsx';
+import DashboardPage from './pages/DashboardPages/DashboardPage.jsx';
+import ReportsPage from './pages/DashboardPages/ReportsPage.jsx';
+import UsersPage from './pages/DashboardPages/UsersPage.jsx';
+import DashArticleListPage from './pages/DashboardPages/DashArticleListPage.jsx';
+
+// ─── Route Guards ─────────────────────────────────────────────────────────────
+
+const RequireAuth = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return <Navigate to="/auth/signin" replace />;
+    return <Outlet />;
+};
+
+const RequireAdmin = () => {
+    const type = localStorage.getItem('type');
+    if (type !== 'admin') return <Navigate to="/dashboard" replace />;
+    return <Outlet />;
+};
+
+// ─── Routes ───────────────────────────────────────────────────────────────────
 
 const routes = [
-  {
-    path: '/',
-    element: <Layout />,
-    errorElement: <NotFoundPage />,
-    children: [
-      { path: '', element: <HomePage /> },
-      { path: 'about', element: <AboutPage /> },
-      { path: 'articles', element: <ArticleListPage /> },
-      { path: 'articles/:name', element: <ArticlePage /> },
-    ],
-  },
-  {
-    path: 'auth/signin',
-    element: <AuthLayout image={login} />,
-    errorElement: <NotFoundPage />,
-    children: [
-      { index: true, element: <SignInPage /> },
-    ],
-  },
-  {
-    path: 'auth/signup',
-    element: <AuthLayout image={signup} />,
-    errorElement: <NotFoundPage />,
-    children: [
-      { index: true, element: <SignUpPage /> },
-    ],
-  },
     {
-    path: "dashboard",
-    element: <DashLayout />,
-    errorElement: <NotFoundPage />,
-    children: [
-      {
-        path: "",
-        element: <DashboardPage />,
-      },
-      {
-        path: "reports",
-        element: <ReportsPage />,
-      },
-      {
-        path: "users",
-        element: <UsersPage/>
-      }
-    ],
-  },
+        path: '/',
+        element: <Layout />,
+        errorElement: <NotFoundPage />,
+        children: [
+            { path: '', element: <HomePage /> },
+            { path: 'about', element: <AboutPage /> },
+            { path: 'articles', element: <ArticleListPage /> },
+            { path: 'articles/:name', element: <ArticlePage /> },
+        ],
+    },
+    {
+        path: 'auth/signin',
+        element: <AuthLayout image={login} />,
+        errorElement: <NotFoundPage />,
+        children: [{ index: true, element: <SignInPage /> }],
+    },
+    {
+        path: 'auth/signup',
+        element: <AuthLayout image={signup} />,
+        errorElement: <NotFoundPage />,
+        children: [{ index: true, element: <SignUpPage /> }],
+    },
+    {
+        element: <RequireAuth />,
+        children: [
+            {
+                path: 'dashboard',
+                element: <DashLayout />,
+                errorElement: <NotFoundPage />,
+                children: [
+                    { path: '', element: <DashboardPage /> },
+                    { path: 'reports', element: <ReportsPage /> },
+                    { path: 'articles', element: <DashArticleListPage /> },
+                    {
+                        element: <RequireAdmin />,
+                        children: [
+                            { path: 'users', element: <UsersPage /> },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 const router = createBrowserRouter(routes);
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
