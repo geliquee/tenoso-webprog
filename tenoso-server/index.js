@@ -21,7 +21,7 @@ const corsOptions = {
     origin: [
         'http://localhost:5173',
         'http://localhost:4173',
-        process.env.CLIENT_URL,
+        'https://tenoso-webprog.vercel.app',
     ].filter(Boolean),
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
