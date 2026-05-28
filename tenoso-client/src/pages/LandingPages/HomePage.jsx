@@ -92,10 +92,10 @@ const HomePage = () => {
                             Featured Articles
                         </p>
                         <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-                            Popular Smiski series to collect
+                            Popular Smiski Facts, Tips, and Guides
                         </h2>
                     </div>
-                    <div className="grid gap-4 md:grid-cols-3">
+                    <div className="grid gap-4 md:grid-cols-4">
                         {featuredArticles.map((article) => {
                             // Use local image as fallback for the 3 series articles
                             const image = article.imageUrl || LOCAL_IMAGES[article.slug] || null;
@@ -109,7 +109,7 @@ const HomePage = () => {
                                             <img
                                                 src={image}
                                                 alt={article.title}
-                                                className="w-full h-90 object-cover"
+                                                className="w-full h-64 object-cover"
                                             />
                                         ) : (
                                             <div className="w-full h-48 bg-zinc-200 rounded-2xl flex items-center justify-center">
