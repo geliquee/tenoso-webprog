@@ -26,22 +26,22 @@ const C = {
 
 const columns = [
     { field: 'id',        headerName: 'ID',          width: 60  },
+    { field: 'collector', headerName: 'Collector',    width: 160 },
     { field: 'series',    headerName: 'Series',       width: 170 },
-    { field: 'category',  headerName: 'Category',     width: 130 },
-    { field: 'unitsSold', headerName: 'Units Sold',   width: 110, type: 'number' },
-    { field: 'date',      headerName: 'Restock Date', width: 130 },
+    { field: 'action',    headerName: 'Activity',     width: 140 },
+    { field: 'date',      headerName: 'Date',         width: 130 },
     {
         field: 'status',
         headerName: 'Status',
-        width: 130,
+        width: 120,
         renderCell: (params) => (
             <Chip
                 label={params.value}
                 size="small"
                 sx={{
                     backgroundColor:
-                        params.value === 'In Stock'  ? C.midGreen :
-                        params.value === 'Low Stock' ? C.yellow   : C.paleGreen,
+                        params.value === 'Published' ? C.midGreen :
+                        params.value === 'Pending'   ? C.yellow   : C.paleGreen,
                     color: C.dark,
                     fontWeight: 700,
                     fontSize: '0.7rem',
@@ -52,29 +52,29 @@ const columns = [
 ];
 
 const rows = [
-    { id: 1, series: 'Series 1 (Classic)',  category: 'Core',      unitsSold: 340, date: '2025-01-10', status: 'In Stock'     },
-    { id: 2, series: 'Bath Series',         category: 'Lifestyle', unitsSold: 210, date: '2025-01-18', status: 'In Stock'     },
-    { id: 3, series: 'Living Series',       category: 'Lifestyle', unitsSold: 195, date: '2025-02-05', status: 'Low Stock'    },
-    { id: 4, series: 'Exercising Series',   category: 'Activity',  unitsSold: 178, date: '2025-02-14', status: 'In Stock'     },
-    { id: 5, series: 'Yoga Series',         category: 'Activity',  unitsSold: 162, date: '2025-02-28', status: 'Out of Stock' },
-    { id: 6, series: '@ Work Series',       category: 'Lifestyle', unitsSold: 150, date: '2025-03-07', status: 'In Stock'     },
-    { id: 7, series: 'Museum Series',       category: 'Special',   unitsSold: 134, date: '2025-03-15', status: 'Low Stock'    },
-    { id: 8, series: 'Sunday Series',       category: 'Lifestyle', unitsSold: 120, date: '2025-03-22', status: 'In Stock'     },
-    { id: 9, series: 'HIPPERS Series',      category: 'Special',   unitsSold: 98,  date: '2025-04-01', status: 'In Stock'     },
+    { id: 1, collector: 'sakura_glows',    series: 'Bath Series',        action: 'Review',   date: '2025-01-08', status: 'Published' },
+    { id: 2, collector: 'mochi.mimi',      series: 'Yoga Series',        action: 'Wishlist',  date: '2025-01-15', status: 'Published' },
+    { id: 3, collector: 'glowbean99',      series: 'Museum Series',      action: 'Rating',    date: '2025-01-22', status: 'Published' },
+    { id: 4, collector: 'tinylamp_co',     series: 'Living Series',      action: 'Review',   date: '2025-02-03', status: 'Pending'   },
+    { id: 5, collector: 'pastel.haze',     series: 'HIPPERS Series',     action: 'Wishlist',  date: '2025-02-11', status: 'Published' },
+    { id: 6, collector: 'neonsprout',      series: '@ Work Series',      action: 'Rating',    date: '2025-02-19', status: 'Published' },
+    { id: 7, collector: 'sakura_glows',    series: 'Sunday Series',      action: 'Review',   date: '2025-03-02', status: 'Drafted'   },
+    { id: 8, collector: 'cottagebloom',    series: 'Exercising Series',  action: 'Wishlist',  date: '2025-03-14', status: 'Published' },
+    { id: 9, collector: 'mochi.mimi',      series: 'Series 1 (Classic)', action: 'Rating',    date: '2025-04-01', status: 'Published' },
 ];
 
 const statCards = [
-    { label: 'Blind Boxes Sold',  value: '1,387', sub: 'Last 4 months',      trend: '+18%' },
-    { label: 'Orders Fulfilled',  value: '1,249', sub: 'Last 4 months',      trend: '+15%' },
-    { label: 'Fulfillment Rate',  value: '90%',   sub: 'Current cycle',      trend: '+3%'  },
-    { label: 'Active Series',     value: '9',     sub: 'Core · Life · Spec', trend: null   },
+    { label: 'Total Wishlists',   value: '3,842', sub: 'Last 4 months', trend: '+21%' },
+    { label: 'Reviews Submitted', value: '1,204', sub: 'Last 4 months', trend: '+17%' },
+    { label: 'Avg. Rating',       value: '4.7★',  sub: 'Across all series', trend: '+0.2' },
+    { label: 'Active Collectors', value: '892',   sub: 'This cycle',    trend: null   },
 ];
 
-const categoryProgress = [
-    { label: 'Core Series',      completed: 2, total: 2 },
-    { label: 'Lifestyle Series', completed: 4, total: 5 },
-    { label: 'Activity Series',  completed: 1, total: 2 },
-    { label: 'Special Series',   completed: 2, total: 2 },
+const activityProgress = [
+    { label: 'Wishlists',  completed: 3842, total: 5000 },
+    { label: 'Reviews',    completed: 1204, total: 2000 },
+    { label: 'Ratings',    completed: 2761, total: 3500 },
+    { label: 'Collectors', completed: 892,  total: 1000 },
 ];
 
 const ReportsPage = () => {
@@ -110,12 +110,12 @@ const ReportsPage = () => {
 
         pdf.setFontSize(22);
         pdf.setTextColor(40, 54, 24);
-        pdf.text('Smiski Store — Sales & Inventory Report', margin, margin + 6);
+        pdf.text('Smiski — Collector Activity Report', margin, margin + 6);
 
         pdf.setFontSize(10);
         pdf.setTextColor(107, 114, 128);
         pdf.text(
-            'Blind-box sales overview, series performance, fulfillment rate, and inventory status.',
+            'Overview of collector wishlists, reviews, and ratings across all Smiski series.',
             margin, margin + 13, { maxWidth: usableWidth }
         );
         pdf.text(`Prepared on ${exportedAt}`, margin, margin + 22);
@@ -205,7 +205,7 @@ const ReportsPage = () => {
                         Reports
                     </Typography>
                     <Typography variant="body2" sx={{ color: C.paleGreen }}>
-                        Smiski blind-box sales, series performance, and inventory overview.
+                        Smiski collector activity — wishlists, reviews, and ratings overview.
                     </Typography>
                 </Box>
 
@@ -304,16 +304,17 @@ const ReportsPage = () => {
                             <CardContent>
                                 <Box sx={{ mb: 2 }}>
                                     <Typography variant="h6" sx={{ fontWeight: 700, color: C.dark }}>
-                                        Monthly Blind Box Sales
+                                        Monthly Collector Activity
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Units sold vs. orders fulfilled across the last four months.
+                                        Wishlists, reviews, and ratings submitted each month.
                                     </Typography>
                                 </Box>
                                 <BarChart
                                     series={[
-                                        { data: [310, 370, 340, 367], label: 'Units Sold',       color: C.dark     },
-                                        { data: [280, 340, 305, 324], label: 'Orders Fulfilled',  color: C.midGreen },
+                                        { data: [820, 1040, 930, 1052], label: 'Wishlists', color: C.dark      },
+                                        { data: [240, 320,  280, 364],  label: 'Reviews',   color: C.midGreen  },
+                                        { data: [580, 710,  640, 831],  label: 'Ratings',   color: C.paleGreen },
                                     ]}
                                     height={260}
                                     xAxis={[{ data: ['January', 'February', 'March', 'April'], scaleType: 'band', label: 'Month' }]}
@@ -325,26 +326,26 @@ const ReportsPage = () => {
                             <CardContent>
                                 <Box sx={{ mb: 2 }}>
                                     <Typography variant="h6" sx={{ fontWeight: 700, color: C.dark }}>
-                                        Series Availability
+                                        Activity Goals
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        In-stock vs. total series per category.
+                                        Progress toward cycle targets.
                                     </Typography>
                                 </Box>
                                 <Stack spacing={2.5} sx={{ mt: 1 }}>
-                                    {categoryProgress.map((cat) => (
-                                        <Box key={cat.label}>
+                                    {activityProgress.map((item) => (
+                                        <Box key={item.label}>
                                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
                                                 <Typography variant="body2" sx={{ fontWeight: 700, color: C.dark }}>
-                                                    {cat.label}
+                                                    {item.label}
                                                 </Typography>
                                                 <Typography variant="body2" sx={{ color: C.dark, opacity: 0.7 }}>
-                                                    {cat.completed}/{cat.total}
+                                                    {item.completed.toLocaleString()}/{item.total.toLocaleString()}
                                                 </Typography>
                                             </Box>
                                             <LinearProgress
                                                 variant="determinate"
-                                                value={(cat.completed / cat.total) * 100}
+                                                value={(item.completed / item.total) * 100}
                                                 sx={{
                                                     height: 10, borderRadius: 5,
                                                     backgroundColor: C.paleGreen,
@@ -363,16 +364,16 @@ const ReportsPage = () => {
                             <CardContent>
                                 <Box sx={{ mb: 2 }}>
                                     <Typography variant="h6" sx={{ fontWeight: 700, color: C.dark }}>
-                                        Weekly Fulfillment Trend
+                                        Weekly Review Trend
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Orders fulfilled week-over-week this quarter.
+                                        Reviews submitted week-over-week this quarter.
                                     </Typography>
                                 </Box>
                                 <LineChart
                                     series={[{
-                                        data:  [52, 68, 61, 89, 74, 95, 88, 110, 102, 121, 115, 134],
-                                        label: 'Fulfilled',
+                                        data:  [38, 45, 41, 60, 55, 72, 68, 84, 79, 95, 88, 110],
+                                        label: 'Reviews',
                                         color: C.midGreen,
                                         area:  true,
                                     }]}
@@ -390,20 +391,21 @@ const ReportsPage = () => {
                             <CardContent>
                                 <Box sx={{ mb: 2 }}>
                                     <Typography variant="h6" sx={{ fontWeight: 700, color: C.dark }}>
-                                        Sales by Category
+                                        Most Wishlisted Series
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Revenue share across Smiski series categories.
+                                        Share of wishlists by Smiski series.
                                     </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                     <PieChart
                                         series={[{
                                             data: [
-                                                { id: 0, value: 38, label: 'Core',      color: C.dark        },
-                                                { id: 1, value: 32, label: 'Lifestyle', color: C.midGreen    },
-                                                { id: 2, value: 18, label: 'Activity',  color: C.lightYellow },
-                                                { id: 3, value: 12, label: 'Special',   color: C.yellow      },
+                                                { id: 0, value: 28, label: 'Bath',       color: C.dark        },
+                                                { id: 1, value: 22, label: 'Museum',     color: C.midGreen    },
+                                                { id: 2, value: 20, label: 'Yoga',       color: C.lightYellow },
+                                                { id: 3, value: 16, label: '@ Work',     color: C.yellow      },
+                                                { id: 4, value: 14, label: 'Others',     color: C.paleGreen   },
                                             ],
                                         }]}
                                         width={260}
@@ -417,15 +419,15 @@ const ReportsPage = () => {
                             <CardContent>
                                 <Box sx={{ mb: 2 }}>
                                     <Typography variant="h6" sx={{ fontWeight: 700, color: C.dark }}>
-                                        Fulfillment Rate
+                                        Review Approval Rate
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Orders completed on time in the current cycle.
+                                        Percentage of submitted reviews published.
                                     </Typography>
                                 </Box>
                                 <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                                     <Gauge
-                                        width={160} height={160} value={90}
+                                        width={160} height={160} value={88}
                                         sx={{
                                             '& .MuiGauge-valueText':    { fill: C.dark,      fontWeight: 700 },
                                             '& .MuiGauge-referenceArc': { fill: C.paleGreen },
@@ -433,7 +435,7 @@ const ReportsPage = () => {
                                         }}
                                     />
                                     <Typography variant="body2" sx={{ color: C.dark, fontWeight: 600 }}>
-                                        90% on-time fulfillment
+                                        88% reviews published
                                     </Typography>
                                 </Box>
                             </CardContent>
@@ -444,10 +446,10 @@ const ReportsPage = () => {
                         <CardContent>
                             <Box sx={{ mb: 2 }}>
                                 <Typography variant="h6" sx={{ fontWeight: 700, color: C.dark }}>
-                                    Series Inventory Records
+                                    Recent Collector Activity
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Per-series unit sales, restock dates, and current stock status.
+                                    Latest wishlists, reviews, and ratings from collectors.
                                 </Typography>
                             </Box>
                             <DataGrid
